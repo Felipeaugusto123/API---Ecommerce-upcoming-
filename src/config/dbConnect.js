@@ -1,8 +1,7 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
-async function conectDb() {
-    mongoose.connect("mongodb+srv://admin:1234@cluster0.o6xt5.mongodb.net/api?retryWrites=true&w=majority&appName=Cluster0");
-    return mongoose.connection;
-}
+mongoose.connect(process.env.DB_CONNECT_STRING);
+
+let conectDb = mongoose.connection;
 
 export default conectDb;

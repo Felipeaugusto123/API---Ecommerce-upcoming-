@@ -21,8 +21,10 @@ class LoginController {
 
                         res.status(200).json({ message: "User authentic", user: userToken })
                     } else {
-                        res.status(400).send("Somethins wrong with User or password")
+                        res.status(400).send("Your password is incorrect");
                     }
+                } else {
+                    res.status(400).send("Somethins wrong with E-MAIL")
                 }
 
 
