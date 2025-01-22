@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-const productSchema = new mongoose.Schema({
-    id: { type: mongoose.Schema.Types.ObjectId },
-    productName: { type: String, required: [true,"Please you have to name your product!"] },
-    price: { type: Number, required: [true,"All the products need to have a price!"] },
+const shoppingSchema = new mongoose.Schema({
+    id: { type: Number, required: [true] },
+    productName: { type: String, required: [true, "Please you have to name your product!"] },
+    price: { type: Number, required: [true, "All the products need to have a price!"] },
     department: { type: String, required: [true, "The department of your product is required"] },
     quantity: {
         type: Number, required: true,
@@ -18,9 +18,8 @@ const productSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users', required: true
     }
+})
 
-});
+const shopping = mongoose.model('shopping',shoppingSchema);
 
-const product = mongoose.model('products', productSchema);
-
-export default product;
+export default shopping;
