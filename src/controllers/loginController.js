@@ -9,15 +9,20 @@ class LoginController {
         if (user) {
             try {
                 const findUser = await users.findOne({ email: user.email });
+                console.log(findUser);
+                
                 if (findUser !== null) {
                     const passwordMatch = await bcrypt.compare(user.password, findUser.password);
 
                     if (passwordMatch) {
                         const userToken = {
+                            id: findUser._id,
                             email: findUser.email,
                             userName: findUser.userName
                         }
                         const token = signToken({ userToken });
+                        console.log(token);
+                        
 
                         res.status(200).json({ message: "User authentic", user: userToken })
                     } else {
