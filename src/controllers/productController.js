@@ -45,36 +45,42 @@ class productController {
         }
     }
 
-    static async addToCart(req,res,next){
-        try{
+    static async addToCart(req, res, next) {
+        try {
             const order = req.body;
-            
+
             const findItem = await product.findById(order.idItem);
-            const user = await register.findById(order.idUser) ;
+            const user = await register.findById(order.idUser);
             const userCart = user.shopping;
             const quantityOrder = order.quantity;
 
-            findItem.quantity -= quantityOrder
-            findItem.save();
-            
+            if (findItem.quantity < quantityOrder) {
+                res.status(400).send("The quantity of your order is greater than the offer")
+            } else {
 
-            userCart.push(findItem);
-            user.save();
-            
-            res.status(200).send("item add in your cart");
+                findItem.quantity -= quantityOrder
+                findItem.save();
 
-        }catch(err){
+
+                userCart.push(findItem);
+                user.save();
+
+                res.status(200).send("item add in your cart");
+            }
+
+
+        } catch (err) {
             console.log(err);
-            
+
         }
     }
 
-    static async getProductsCart(req,res,next){
+    static async getProductsCart(req, res, next) {
         const user = req.params.id;
         const findUser = await register.findById(user).populate("shopping");
         const cart = findUser.shopping;
 
-        res.status(200).json({message:"Products ir cart",cart});
+        res.status(200).json({ message: "Products ir cart", cart });
     }
 }
 
