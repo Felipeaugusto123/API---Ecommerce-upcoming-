@@ -68,6 +68,14 @@ class productController {
             
         }
     }
+
+    static async getProductsCart(req,res,next){
+        const user = req.params.id;
+        const findUser = await register.findById(user).populate("shopping");
+        const cart = findUser.shopping;
+
+        res.status(200).json({message:"Products ir cart",cart});
+    }
 }
 
 async function searchBy(param) {

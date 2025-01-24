@@ -5,7 +5,7 @@ const registerSchema = new mongoose.Schema({
     email:{type: String,required:true},
     userName:{type:String,required:true},
     password:{type:String,required:true},
-    shopping:[{ type: mongoose.Schema.Types.ObjectId, ref: "Produto" }],
+    shopping:[{ type: mongoose.Schema.Types.ObjectId, ref: "products" }],
 },{versionKey:false});
 
 const register = mongoose.model("users",registerSchema);
